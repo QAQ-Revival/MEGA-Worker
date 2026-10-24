@@ -1,0 +1,4 @@
+[submodule "vendor/MegaDownloader-Revival"]
+	path = vendor/MegaDownloader-Revival
+	url = https://github.com/a1175815821/MegaDownloader-Revival.git
+	branch = main
