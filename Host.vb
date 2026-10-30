@@ -16,6 +16,8 @@ Public Class URLProcessor
         Public URL As String
         Public Path As String
         Public FolderName As String
+        Public DisplayName As String
+        Public SizeBytes As Long?
         Public Sub New(value As String, relative As String)
             URL = value
             Path = relative
