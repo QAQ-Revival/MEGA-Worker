@@ -18,11 +18,48 @@ Public Class URLProcessor
         Public FolderName As String
         Public DisplayName As String
         Public SizeBytes As Long?
+        Public PublicFolderParent As String
+        Public PublicFolderAccountLink As String
         Public Sub New(value As String, relative As String)
             URL = value
             Path = relative
         End Sub
     End Class
+End Class
+
+' Public links use Conexion's proxy. Only the desktop application has an account session to refresh.
+Friend NotInheritable Class MegaAccountService
+    Friend Shared ReadOnly Current As New MegaAccountService()
+    Friend Sub UpdateProxies()
+    End Sub
+End Class
+
+' The worker requests files through RetrieveLinksFromFolder. These are the folder reader's
+' optional subscription fields in the desktop host, which supplies a listing to ReadFolder.
+Friend MustInherit Class PublicFolderListing
+    Friend RootHandle As String
+    Friend ShareName As String
+    Friend IsComplete As Boolean = True
+    Friend ReadOnly Directories As New Dictionary(Of String, PublicFolderDirectory)(StringComparer.Ordinal)
+    Friend MustOverride Function FileLink(handle As String) As String
+End Class
+
+Friend NotInheritable Class PublicFolderDirectory
+    Friend ReadOnly Handle As String
+    Friend ReadOnly ParentHandle As String
+    Friend ReadOnly Name As String
+    Friend Sub New(handle As String, parentHandle As String, name As String)
+        Me.Handle = handle
+        Me.ParentHandle = parentHandle
+        Me.Name = name
+    End Sub
+End Class
+
+Friend NotInheritable Class PublicFolderUnavailableException
+    Inherits ApplicationException
+    Friend Sub New(message As String)
+        MyBase.New(message)
+    End Sub
 End Class
 
 ' The headless host uses upstream fallback messages; QAQR owns UI translations.
