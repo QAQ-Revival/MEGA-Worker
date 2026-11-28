@@ -70,6 +70,11 @@ Public Class Language
 End Class
 
 Public Class Log
+    Public Shared ReadOnly Property IsDebugEnabled As Boolean
+        Get
+            Return False
+        End Get
+    End Property
     Public Shared Sub WriteDebug(message As String)
     End Sub
     Public Shared Sub WriteInfo(message As String)

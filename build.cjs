@@ -12,7 +12,7 @@ function build({ upstream = path.join(__dirname, 'vendor/MegaDownloader-Revival'
   if (!fs.existsSync(compiler)) throw Error('.NET Framework VB compiler is required');
   fs.mkdirSync(output, { recursive: true });
   fs.mkdirSync(work, { recursive: true });
-  const sources = ['FileDownloader', 'Criptografia', 'Conexion', 'PreSharedKeyManager', 'URLExtractor', 'MegaFolderHelper',
+  const sources = ['FileDownloader', 'DownloadBufferPool', 'Criptografia', 'Conexion', 'PreSharedKeyManager', 'URLExtractor', 'MegaFolderHelper',
     'MegaQuotaManager', 'NetworkErrors', 'PathGuard', 'ThrottledStream', 'ThrottledStreamController', 'InternalConfiguration', 'ResourceHelper', 'MEGA_ErrorHandler'];
   const libraries = ['BouncyCastle.Cryptography', 'Newtonsoft.Json', 'System.Memory', 'System.Buffers', 'System.Numerics.Vectors', 'System.Runtime.CompilerServices.Unsafe'];
   for (const name of libraries) fs.copyFileSync(path.join(upstream, 'Resources/DLLs', name + '.dll'), path.join(output, name + '.dll'));
